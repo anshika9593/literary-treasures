@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSE Books</title>
+    <style>
+        body {background:#f8fafd;font-family:'Segoe UI',Arial;}
+        h2 {text-align:center;color:#283e4a;margin-top:32px;}
+        table {border-collapse:collapse;width:95%;margin:0 auto;background:#fff;box-shadow:0 6px 32px rgba(40,62,74,0.09);border-radius:12px;}
+        th, td {padding:15px 11px;text-align:left;} th {background:#283e4a;color:#fff;}
+        tr:nth-child(even) {background:#f4f6fa;} td img {border-radius:5px; box-shadow:0 4px 12px rgba(40,62,74,0.10);}
+        button {padding:6px 18px; border:none;border-radius:5px;background:#283e4a;color:#fff;cursor:pointer; font-weight:600;}
+        button:hover {background:#374b63;}
+    </style>
+    <script>
+        function addToCart(book) {
+            let cart = localStorage.getItem('cart_items');
+            cart = cart ? JSON.parse(cart) : [];
+            cart.push(book);
+            localStorage.setItem('cart_items', JSON.stringify(cart));
+            alert("Book added to cart!");
+        }
+    </script>
+</head>
+<body>
+    <h2>CSE Book Catalogue</h2>
+    <table>
+        <tr>
+            <th>Book Image</th><th>Book Title</th><th>Author</th><th>Price</th><th>Add to Cart</th>
+        </tr>
+        <tr>
+            <td><img src="https://3.bp.blogspot.com/-t7-Y94gUMFs/Ui7U3i-uAdI/AAAAAAAAARY/zaBfpYu9TJI/s1600/cn.png" width="60"></td>
+            <td>Computer Networks</td>
+            <td>Andrew S. Tanenbaum</td>
+            <td>₹500</td>
+            <td><button onclick="addToCart({img:'https://3.bp.blogspot.com/-t7-Y94gUMFs/Ui7U3i-uAdI/AAAAAAAAARY/zaBfpYu9TJI/s1600/cn.png',title:'Computer Networks',author:'Andrew S. Tanenbaum',dept:'CSE',price:'₹500'})">Add to Cart</button></td>
+        </tr>
+        <tr>
+            <td><img src="https://www.madrasshoppe.com/133897-large_default/data-structures-for-anna-university-cse-it-course-pb-2020-p-sudharsan.jpg" width="60"></td>
+            <td>Data Structures</td>
+            <td>P Sudharsan</td>
+            <td>₹650</td>
+            <td><button onclick="addToCart({img:'https://www.madrasshoppe.com/133897-large_default/data-structures-for-anna-university-cse-it-course-pb-2020-p-sudharsan.jpg', title:'Data Structures',author:'P Sudharsan',dept:'CSE',price:'₹650'})">Add to Cart</button></td>
+
+    </table>
+</body>
+</html>

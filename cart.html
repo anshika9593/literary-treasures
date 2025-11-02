@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart Page</title>
+    <link href="https://fonts.googleapis.com/css?family=Segoe+UI:400,600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #f8fafd;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #283e4a;
+            margin-bottom: 28px;
+            font-weight: 600;
+        }
+        form {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background: #fff;
+            box-shadow: 0 6px 32px rgba(40,62,74,0.09);
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 1rem;
+        }
+        th, td {
+            padding: 14px 12px;
+            text-align: left;
+        }
+        th {
+            background: #283e4a;
+            color: #fff;
+            font-weight: 600;
+            border-bottom: 3px solid #e0e3e8;
+        }
+        tr:nth-child(even) {
+            background: #f4f6fa;
+        }
+        tr:hover td {
+            background: #e7ecf2;
+            transition: background 0.22s;
+        }
+        td img {
+            border-radius: 5px;
+            box-shadow: 0 4px 12px rgba(40,62,74,0.10);
+        }
+        input[type="submit"], input[type="button"] {
+            padding: 11px 28px;
+            border: none;
+            border-radius: 5px;
+            margin: 20px 12px 0 0;
+            background: #284a2e;
+            color: #ffffff;
+            font-size: 1.06rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.22s;
+        }
+        input[type="submit"]:hover, input[type="button"]:hover {
+            background: #3a4f67;
+        }
+        .cart-empty {
+            text-align: center;
+            color: #e53935;
+            font-size: 1.12rem;
+            margin: 40px 0 28px 0;
+        }
+    </style>
+    <script>
+        // Helper to get cart data
+        function getCart() {
+            let cart = localStorage.getItem('cart_items');
+            return cart ? JSON.parse(cart) : [];
+        }
+        // Helper to set cart data
+        function setCart(cart) {
+            localStorage.setItem('cart_items', JSON.stringify(cart));
+        }
+        // Render table rows based on current cart
+        function renderCartTable() {
+            const cart = getCart();
+            const tbody = document.getElementById("cart-body");
+            tbody.innerHTML = "";
+
+            if(cart.length === 0) {
+                tbody.innerHTML = <tr><td colspan="6" class="cart-empty">Your cart is empty.</td></tr>;
+                return;
+            }
+            cart.forEach((book, idx) => {
+                tbody.innerHTML += `<tr>
+                    <td><img src="${book.img}" width="60" alt="${book.title}"></td>
+                    <td>${book.title}</td>
+                    <td>${book.author}</td>
+                    <td>${book.dept}</td>
+                    <td>${book.price}</td>
+                    <td><input type=" checkbox" name="remove${idx}"></td>
+                </tr>`;
+            });
+        }
+        // Remove selected books from cart
+        function removeSelectedFromCart(form) {
+            const cart = getCart();
+            const boxes = form.querySelectorAll('input[type="checkbox"]:checked');
+            if(boxes.length === 0) {
+                alert("No books selected to remove.");
+                return;
+            }
+            let newCart = [];
+            cart.forEach((book, idx) => {
+                const cb = form.querySelector(input[name='remove${idx}']);
+                if(cb && !cb.checked) newCart.push(book);
+            });
+            setCart(newCart);
+            renderCartTable();
+            alert("Selected book(s) removed from cart.");
+        }
+        window.onload = () => {
+            renderCartTable();
+            const form = document.querySelector("form");
+            // Update Cart (Remove selected)
+            form.addEventListener("submit", function(event) {
+                event.preventDefault();
+                removeSelectedFromCart(form);
+            });
+            // Checkout
+            form.querySelector('input[type="button"]').addEventListener("click", function() {
+                const cart = getCart();
+                if(cart.length === 0) {
+                    alert("Your cart is empty. Please add books before checkout.");
+                } else {
+                    alert("Proceeding to checkout...");
+                    // Place checkout navigation or external redirection here
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+    <h2>Your Shopping Cart</h2>
+    <form>
+        <table border="1" cellpadding="8" cellspacing="0">
+            <tr>
+                <th>Book Image</th>
+                <th>Book Title</th>
+                <th>Author</th>
+                <th>Department</th>
+                <th>Price</th>
+                <th>Remove</th>
+            </tr>
+            <tbody id="cart-body">
+                <!-- JavaScript will fill this -->
+            </tbody>
+        </table>
+        <br>
+        <input type="submit" value="Update Cart">
+        <input type="button" value="Checkout">
+    </form>
+</body>
+</html>

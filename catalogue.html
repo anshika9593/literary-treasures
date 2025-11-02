@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Catalogue</title>
+    <link href="https://fonts.googleapis.com/css?family=Segoe+UI:400,600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #faf8fd;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        h2 { text-align:center; color:#3b284a; font-weight:600; margin-top:32px;}
+        table {border-collapse:collapse; width:95%; margin:0 auto; background:#fff; box-shadow:0 6px 32px rgba(40,62,74,0.09); border-radius:12px;}
+        th, td {padding:15px 11px; text-align:left;}
+        th {background:#3b284a;color:#ffffff;font-weight:600;}
+        tr:nth-child(even) {background:#f6f4fa;}
+        td img {border-radius:5px; box-shadow:0 4px 12px rgba(40,62,74,0.10);}
+        button {padding:6px 18px; border:none;border-radius:5px;background:#283e4a;color:#fff;cursor:pointer; font-weight:600;}
+        button:hover {background:#376351;}
+    </style>
+    <script>
+        function addToCart(book) {
+            let cart = localStorage.getItem('cart_items');
+            cart = cart ? JSON.parse(cart) : [];
+            cart.push(book);
+            localStorage.setItem('cart_items', JSON.stringify(cart));
+            alert("Book added to cart!");
+        }
+    </script>
+</head>
+<body>
+    <h2>Book Catalogue</h2>
+    <table>
+        <tr>
+            <th>Book Image</th><th>Book Title</th><th>Author</th><th>Department</th><th>Price</th><th>Add to Cart</th>
+        </tr>
+        <tr>
+            <td><img src="https://3.bp.blogspot.com/-t7-Y94gUMFs/Ui7U3i-uAdI/AAAAAAAAARY/zaBfpYu9TJI/s1600/cn.png" width="60"></td>
+            <td>Computer Networks</td>
+            <td>Andrew S. Tanenbaum</td>
+            <td>CSE</td>
+            <td>₹500</td>
+            <td><button onclick="addToCart({img:'https://3.bp.blogspot.com/-t7-Y94gUMFs/Ui7U3i-uAdI/AAAAAAAAARY/zaBfpYu9TJI/s1600/cn.png',title:'Computer Networks',author:'Andrew S. Tanenbaum',dept:'CSE',price:'₹500'})">Add to Cart</button></td>
+        </tr>
+        <tr>
+            <td><img src="https://www.madrasshoppe.com/133897-large_default/data-structures-for-anna-university-cse-it-course-pb-2020-p-sudharsan.jpg" width="60"></td>
+            <td>Data Structures</td>
+            <td>P Sudharsan</td>
+            <td>CSE</td>
+            <td>₹650</td>
+            <td><button onclick="addToCart({img:'https://www.madrasshoppe.com/133897-large_default/data-structures-for-anna-university-cse-it-course-pb-2020-p-sudharsan.jpg',title:'Data Structures',author:'P Sudharsan',dept:'CSE',price:'₹650'})">Add to Cart</button></td>
+        </tr>
+
+        <tr>
+            <td><img src="https://arspublications.com/wp-content/uploads/2019/05/New-DIGITAL-ELECTRONICS-A-784x1024.jpg" width="60"></td>
+            <td>Digital Electronics</td>
+            <td>D Edwin Dhas</td>
+            <td>ECE</td>
+            <td>₹550</td>
+            <td><button onclick="addToCart({img:'https://arspublications.com/wp-content/uploads/2019/05/New-DIGITAL-ELECTRONICS-A-784x1024.jpg',title:'Digital Electronics',author:'D Edwin Dhas',dept:'ECE',price:'₹550'})">Add to Cart</button></td>
+        </tr>
+        <tr>
+            <td><img src="https://th.bing.com/th/id/OIP.wJSy58ptQJWoxRzLwuuwQQAAAA?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3" width="60"></td>
+            <td>Microelectronics</td>
+            <td>Millman & Halkias</td>
+            <td>ECE</td>
+            <td>₹500</td>
+            <td><button onclick="addToCart({img:'https://th.bing.com/th/id/OIP.wJSy58ptQJWoxRzLwuuwQQAAAA?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3',title:'Microelectronics',author:'Millman & Halkias',dept:'ECE',price:'₹500'})">Add to Cart</button></td>
+        </tr>
+        <tr>
+            <td><img src="https://m.media-amazon.com/images/I/718em8ReG3S.jpg" width="60"></td>
+            <td>Electrical Machines</td>
+            <td>P.S. Bimbhra</td>
+            <td>EEE</td>
+            <td>₹480</td>
+            <td><button onclick="addToCart({img:'https://m.media-amazon.com/images/I/718em8ReG3S.jpg',title:'Electrical Machines',author:'P.S. Bimbhra',dept:'EEE',price:'₹480'})">Add to Cart</button></td>
+        </tr>
+        <tr>
+            <td><img src="https://arspublications.com/wp-content/uploads/2019/05/Digital-Signal-Processing-A-623x822.jpg" width="60"></td>
+            <td>Digital Signal Processing</td>
+            <td>Dr.P.Rangarajan</td>
+            <td>EEE</td>
+            <td>₹475</td>
+            <td><button onclick="addToCart({img:'https://arspublications.com/wp-content/uploads/2019/05/Digital-Signal-Processing-A-623x822.jpg',title:'Digital Signal Processing',author:'Dr.P.Rangarajan',dept:'EEE',price:'₹475'})">Add to Cart</button></td>
+        </tr>
+    </table>
+</body>
+</html>
