@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration Page</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background: #f8fbfd;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 420px;
+            margin: 48px auto;
+            padding: 32px 28px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 18px rgba(40,62,74,0.08);
+        }
+        h2 {
+            text-align: center;
+            color: #282f4a;
+        }
+        form label {
+            display: block;
+            margin-top: 12px;
+            font-weight: 500;
+            color: #486969;
+        }
+        input[type="text"], input[type="email"], input[type="password"], textarea {
+            width: 100%;
+            padding: 8px 12px;
+            margin-top: 6px;
+            margin-bottom: 2px;
+            border: 1px solid #cccfde;
+            border-radius: 5px;
+            font-size: 1rem;
+            background: #f4fafa;
+            box-sizing: border-box;
+            transition: border 0.2s;
+        }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, textarea:focus {
+            border: 1.5px solid #413763;
+            background: #e7f2f2;
+        }
+        .gender-options {
+            margin-top: 6px;
+            margin-bottom: 2px;
+        }
+        .gender-options label {
+            font-weight: normal;
+            margin-right: 16px;
+            color: #37634f;
+        }
+        .buttons {
+            text-align: center;
+            margin-top: 18px;
+        }
+        .form-btn {
+            padding: 9px 24px;
+            margin: 0 10px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            background: #2d284a;
+            color: #ffffff;
+            cursor: pointer;
+            transition: background 0.18s;
+        }
+        .form-btn:hover {
+            background: #403a67;
+        }
+        .error {
+            color: #e53935;
+            font-size: 0.98rem;
+            margin-bottom: 2px;
+        }
+    </style>
+    <script>
+        function validateForm(event) {
+            // Prevent submission for validation process
+            event.preventDefault();
+
+            let isValid = true;
+            const fullname = document.getElementById('fullname');
+            const email = document.getElementById('email');
+            const username = document.getElementById('username');
+            const password = document.getElementById('password');
+            const genderMale = document.getElementById('male');
+            const genderFemale = document.getElementById('female');
+            const genderOther = document.getElementById('other');
+            const address = document.getElementById('address');
+            const mobile = document.getElementById('mobile');
+            
+            // Error messages
+            document.getElementById('fullname_err').innerText = fullname.value.trim() === "" ? "Full name is required." : "";
+            document.getElementById('email_err').innerText = !validateEmail(email.value) ? "Please enter a valid email." : "";
+            document.getElementById('username_err').innerText = username.value.trim() === "" ? "Username is required." : "";
+            document.getElementById('password_err').innerText = password.value.length < 5 ? "Password must be at least 5 characters." : "";
+            document.getElementById('address_err').innerText = address.value.trim() === "" ? "Address is required." : "";
+            document.getElementById('mobile_err').innerText = !validateMobile(mobile.value) ? "Please enter a valid 10-digit mobile number." : "";
+            
+            // Gender validation
+            if (!genderMale.checked && !genderFemale.checked && !genderOther.checked) {
+                document.getElementById('gender_err').innerText = "Please select your gender.";
+                isValid = false;
+            } else {
+                document.getElementById('gender_err').innerText = "";
+            }
+            if (fullname.value.trim() === "" ||
+                !validateEmail(email.value) ||
+                username.value.trim() === "" ||
+                password.value.length > 7 ||
+                address.value.trim() === "" ||
+                !validateMobile(mobile.value) ||
+                (!genderMale.checked && !genderFemale.checked && !genderOther.checked)
+            ) {
+                isValid = false;
+            }
+            if (isValid) {
+                alert("Registration successful!");
+                event.target.submit();
+            }
+        }
+        function validateEmail(email) {
+            // simple email regex
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+        }
+        function validateMobile(mob) {
+            // 10 digits only, starts with 6-9 (typical India mobile numbers)
+            return /^[6-9]\d{9}$/.test(mob.trim());
+        }
+        window.onload = function() {
+            document.getElementById('regForm').addEventListener('submit', validateForm);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Registration</h2>
+        <form id="regForm" autocomplete="off">
+            <label for="fullname">Full Name:</label>
+            <input type="text" id="fullname" name="fullname">
+            <div class="error" id="fullname_err"></div>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+            <div class="error" id="email_err"></div>
+
+            <label for="username">User Name:</label>
+            <input type="text" id="username" name="username">
+            <div class="error" id="username_err"></div>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <div class="error" id="password_err"></div>
+
+            <label>Gender:</label>
+            <div class="gender-options">
+                <label><input type="radio" name="gender" id="male" value="Male"> Male</label>
+                <label><input type="radio" name="gender" id="female" value="Female"> Female</label>
+                <label><input type="radio" name="gender" id="other" value="Other"> Other</label>
+            </div>
+            <div class="error" id="gender_err"></div>
+            <label>Languages Known:</label>
+            <div class="Languages-options">
+                <label><input type="radio" name="Languages Known" id="english" value="English"> English</label>
+                <label><input type="radio" name="Languages Known" id="hindi" value="Hindi"> Hindi</label>
+                <label><input type="radio" name="Languages Known" id="tamil" value="Tamil"> Tamil</label>
+            </div>
+            <div class="error" id="Languages-options"></div>
+
+            <label for="address">Address:</label>
+            <textarea id="address" name="address" rows="2"></textarea>
+            <div class="error" id="address_err"></div>
+
+            <label for="mobile">Mobile Number:</label>
+            <input type="text" id="mobile" name="mobile" maxlength="10" pattern="[0-9]{10}">
+            <div class="error" id="mobile_err"></div>
+
+            <div class="buttons">
+                <input class="form-btn" type="submit" value="Submit">
+                <input class="form-btn" type="reset" value="Reset">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
