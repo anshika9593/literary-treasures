@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Page</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background: #f9fdf8;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 360px;
+            margin: 70px auto;
+            padding: 32px 28px 24px 28px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 18px rgba(40,62,74,0.08);
+        }
+        h2 {
+            text-align: center;
+            color: #282a4a;
+            margin-bottom: 18px;
+        }
+        form label {
+            display: block;
+            margin-top: 16px;
+            font-weight: 500;
+            color: #4b4869;
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 9px 12px;
+            margin-top: 6px;
+            margin-bottom: 2px;
+            border: 1px solid #ccd4de;
+            border-radius: 5px;
+            background: #f4f6fa;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border 0.2s;
+        }
+        input[type="text"]:focus, input[type="password"]:focus {
+            border: 1.5px solid #374b63;
+            background: #e7ecf2;
+        }
+        .buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .form-btn {
+            padding: 9px 24px;
+            margin: 0 10px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            background: #284a28;
+            color: #c0c5c7;
+            cursor: pointer;
+            transition: background 0.18s;
+        }
+        .form-btn:hover {
+            background: #74818f;
+        }
+        .error {
+            color: #e53935;
+            font-size: 0.98rem;
+            margin-bottom: 3px;
+        }
+    </style>
+    <script>
+        function validateLogin(event) {
+            event.preventDefault();
+            let isValid = true;
+            const username = document.getElementById('username');
+            const password = document.getElementById('password');
+            document.getElementById('username_err').innerText = username.value.trim() === "" ? "Username is required." : "";
+            document.getElementById('password_err').innerText = password.value.trim() === "" ? "Password is required." : "";
+
+            if (username.value.trim() === "" || password.value.trim() === "") {
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert("Login successful!");
+                event.target.submit();
+            }
+        }
+        window.onload = function() {
+            document.getElementById('loginForm').addEventListener('submit', validateLogin);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form id="loginForm" autocomplete="off">
+            <label for="username">User Name:</label>
+            <input type="text" id="username" name="username">
+            <div class="error" id="username_err"></div>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <div class="error" id="password_err"></div>
+
+            <div class="buttons">
+                <input class="form-btn" type="submit" value="Submit">
+                <input class="form-btn" type="reset" value="Reset">
+            </div>
+        </form>
+    </div>
+</body>
+</html>
